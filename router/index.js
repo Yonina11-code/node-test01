@@ -1,0 +1,6 @@
+const server = require('./server')
+const router = require('./router')
+const api = require('./api')
+server.use(router)
+server.use(api)
+server.start()

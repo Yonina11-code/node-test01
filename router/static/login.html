@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <div>用户名： <input id="username"></div>
+    <div>密码： <input type="password" id="password"></div>
+    <div><button id="login">登录--get</button></div>
+    <div><button id="login-post">登录--post</button></div>
+  </div>
+  <script>
+    let onlogin = document.querySelector('#login')
+    let loginpost = document.querySelector('#login-post')
+    let username = document.querySelector('#username')
+    let password = document.querySelector('#password')
+    onlogin.onclick = () => {
+      fetch(`/api/login?username=${username.value}&password=${password.value}`)
+      .then(res => res.text())
+      .then(res => {
+        console.log('res', res)
+      })
+    }
+    loginpost.onclick = () => {
+      fetch('/api/loginpost', {
+        method: 'post',
+        body: JSON.stringify({
+          username: username.value,
+          password: password.value
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => res.text())
+      .then(res => {
+        console.log('res-post', res)
+      })
+    }
+  </script>
+</body>
+</html>
