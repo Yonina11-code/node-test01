@@ -18,5 +18,4 @@ readerStream.on('error', function(err) {
 console.log('程序执行完毕')
 
 let writerStream = fs.createWriteStream('output.txt')
-// 管道读写操作
-readerStream.pipe(writerStream)
+readerStream.pipe(writerStream) // 可读流(readerStream) 通过管道 送到可写流中 (writerStream)

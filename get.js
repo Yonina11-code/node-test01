@@ -1,9 +1,7 @@
 let https = require('https') // 请求的是https
 let http = require('http')
 let url = require('url')
-let events = require('events')
-// 创建eventEmitter对象
-let eventEmitter = null
+
 
 http.createServer(function (req, res) {
   let urlObj = url.parse(req.url, true)
@@ -15,9 +13,7 @@ http.createServer(function (req, res) {
   })
   switch(urlObj.pathname) {
     case '/api/aaa':
-      httpget()
-      eventEmitter = new events()
-      eventEmitter.on('play', (data) => {
+      httppost((data) => {
         res.end(data)
       })
       break
@@ -26,7 +22,7 @@ http.createServer(function (req, res) {
   }
 }).listen(8088)
 
-function httpget () {
+function httpget (response) {
   let data = ''
   https.get('https://i.maoyan.com/api/mmdb/movie/v3/list/hot.json?ct=%E6%9D%AD%E5%B7%9E&ci=50&channelId=4', (res) => {
   // res相当于一个数据流
@@ -35,8 +31,7 @@ function httpget () {
   })
   res.on('end', () => { // 所有数据收集完之后
     console.log(data)
-    // response.end(data)
-    eventEmitter.emit('play', data)
+    response.end(data)
   })
   })
 
