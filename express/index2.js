@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
 const router = require('./router')
+// 配置解析post参数的中间件， 不用下载第三方，已经内置了
+app.use(express.urlencoded({ extended: false })) // 用于解析post参数-类似： username=yxy&password=1234
+app.use(express.json()) // 响应post请求中json格式的参数
 
 // 应用级别
 app.use(function (req, res, next) {
