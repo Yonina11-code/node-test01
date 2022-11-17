@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const userModel = require('../models/user')
+const userController = require('../controllers/userController')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -11,19 +12,7 @@ router.get('/cool', function(req, res, next) {
   res.send('你好酷');
 });
 
-router.post('/user/add', (req, res) => {
-  const { username, password, age } = req.body
-  userModel.create({
-    username,
-    password,
-    age
-  }).then(data => {
-    console.log(data)
-  })
-  res.send({
-    ok: 1
-  })
-})
+router.post('/user/add', userController.addUser)
 router.post('/user/update/:id', (req, res) => {
   console.log(req.body, req.params.id)
   const { username, password, age } = req.body
