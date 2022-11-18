@@ -9,40 +9,13 @@
 </head>
 <body>
   <div>
-    <form action="/login/validate" method="post">
-      <div>用户名： <input name="username" type="text"></div>
-      <div>密码： <input type="password" name="password"></div>
-      <div><button type="submit" id="login">登录--get</button></div>
-    </form>
+    <!-- <form action="/login/validate" method="post"> -->
+      <div>用户名： <input id="username" type="text"></div>
+      <div>密码： <input type="password" id="password"></div>
+      <!-- <div><button type="submit" id="login">登录--get</button></div> -->
+    <!-- </form> -->
     <div><button id="login-post">登录--post</button></div>
   </div>
-  <!-- <script>
-    let onlogin = document.querySelector('#login')
-    let loginpost = document.querySelector('#login-post')
-    let username = document.querySelector('#username')
-    let password = document.querySelector('#password')
-    onlogin.onclick = () => {
-      fetch(`/api/login?username=${username.value}&password=${password.value}`)
-      .then(res => res.text())
-      .then(res => {
-        console.log('res', res)
-      })
-    }
-    loginpost.onclick = () => {
-      fetch('/api/loginpost', {
-        method: 'post',
-        body: JSON.stringify({
-          username: username.value,
-          password: password.value
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(res => res.text())
-      .then(res => {
-        console.log('res-post', res)
-      })
-    }
-  </script> -->
+  <script src="javascripts/login.js"></script>
 </body>
 </html>

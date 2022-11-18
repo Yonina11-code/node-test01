@@ -4,21 +4,23 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src gap://ready file://* *; style-src 'self' http://* https://* 'unsafe-inline'; script-src 'self' http://* https://* 'unsafe-inline' 'unsafe-eval'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; script-src 'self' https://somedomain.com/ 'unsafe-inline' 'unsafe-eval';  media-src *">
+
+
   <title>Document</title>
 </head>
 <body>
   <div>
-    <!-- <form action="/login/validate" method="post"> -->
       <div>用户名： <input id="username" type="text"></div>
       <div>密码： <input type="password" id="password"></div>
       <div>年龄 <input type="number" id="age"></div>
-      <!-- <div><button type="submit" id="login">登录--get</button></div> -->
-    <!-- </form> -->
-    <div><button id="register">注册</button></div>
+    <div><button type="button" id="register">新增用户</button></div>
     <hr>
     <div>
-      <button id="update">更新</button>
-      <button id="delete">删除</button>
+      <button type="button" id="update">更新</button>
+      <button type="button" id="delete">删除</button>
     </div>
 
     <hr>
@@ -35,71 +37,6 @@
       </tbody>
     </table>
   </div>
-  <script>
-    // let onlogin = document.querySelector('#login')
-    let register = document.querySelector('#register')
-    let update = document.querySelector('#update')
-    let delet = document.querySelector('#delete')
-    let username = document.querySelector('#username')
-    let password = document.querySelector('#password')
-    let age = document.querySelector('#age')
-    register.onclick = () => {
-      fetch(`/api/user/add`, {
-        method: 'post',
-        body: JSON.stringify({
-          username: username.value,
-          password: password.value,
-          age: age.value
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => res.json())
-      .then(res => {
-        console.log('res', res)
-      })
-    }
-
-    update.onclick = () => {
-      fetch(`/api/user/update/6375ac91afffaf3f6830a81e`, {
-        method: 'post',
-        body: JSON.stringify({
-          username: username.value,
-          password: password.value,
-          age: 1
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => res.json())
-      .then(res => {
-        console.log('res', res)
-      })
-    }
-
-    delet.onclick = () => {
-      fetch(`/api/user/delete/6375ac91afffaf3f6830a81e`)
-      .then(res => res.json())
-      .then(res => {
-        console.log('res', res)
-      })
-    }
-
-    fetch('/api/user/list').then(res => res.json())
-    .then(res => {
-      console.log('res', res)
-      let tbody = document.querySelector('tbody')
-      tbody.innerHTML = res.map(item => {
-        return  `
-        <tr>
-          <td>${item._id}</td>
-          <td>${item.username}</td>
-          <td>${item.age}</td>
-        </tr>`
-      }).join('')
-    })
-  </script>
+  <script src="/javascripts/index.js"></script>
 </body>
 </html>
