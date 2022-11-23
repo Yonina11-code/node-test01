@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+// const axios = require('axios').default
 // let onlogin = document.querySelector('#login')
 let loginpost = document.querySelector('#login-post')
 let username = document.querySelector('#username')
@@ -10,20 +12,13 @@ let password = document.querySelector('#password')
 //   })
 // }
 loginpost.onclick = () => {
-  fetch('/api/login', {
-    method: 'post',
-    body: JSON.stringify({
-      username: username.value,
-      password: password.value
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }).then(res => res.json())
-  .then(res => {
-    console.log('res-post', res)
-    if (+res.ok === 1) {
-
+  axios.post('/api/login', {
+    username: username.value,
+    password: password.value
+  }).then(res => {
+    console.log(res)
+   if (+res.data.ok === 1) {
+      // 存储token
       location.href = '/'
     } else {
       alert('用户名密码不匹配')

@@ -19,4 +19,11 @@ router.get('/user/delete/:id', userController.delete)
 router.get('/user/list', userController.list)
 
 router.post('/login', userController.login)
+router.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.send({
+      ok: 1
+    })
+  })
+})
 module.exports = router;

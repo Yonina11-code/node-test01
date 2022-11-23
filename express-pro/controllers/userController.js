@@ -1,5 +1,6 @@
 
 const userService = require('../services/userService')
+const jwt = require('../util/jwt')
 const userController = {
   addUser: async (req, res) => {
     const { username, password, age } = req.body
@@ -42,7 +43,13 @@ const userController = {
         ok: 0
       })
     } else {
-      req.session.user = data[0] // 设置session对象
+      // 设置token
+      const token = jwt.generate({
+        _id: data[0]._id,
+        username: data[0].username
+      }, '1h')
+      // token返回在header
+      res.header('Authorization', token)
       res.send({
         ok: 1
       })
